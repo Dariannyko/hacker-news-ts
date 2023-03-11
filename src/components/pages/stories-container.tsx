@@ -34,7 +34,6 @@ const StoriesContainer = () => {
     const intervalCall = setInterval(() => {
       getStories(newStoriesUrl).then((storiesIds) => {
         setStoriesIds(storiesIds);
-        console.log("CALLL");
       });
     }, 60000);
 
