@@ -1,4 +1,4 @@
-# Used technologies:
+## Used technologies:
 JavaScript TypeScript React MUI
 
 ## Used libraries:
@@ -18,3 +18,6 @@ It correctly bundles React in production mode and optimizes the build for the be
 
 
 Your app is ready to be deployed!
+
+## Project Link :
+✨ **[Hacker News](https://master--deft-pasca-8dd828.netlify.app/)**
