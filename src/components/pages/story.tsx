@@ -17,6 +17,7 @@ import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import IconButton from "@mui/material/IconButton";
 import Divider from "@mui/material/Divider";
 import CircularProgress from "@mui/material/CircularProgress";
+import LinearProgress from "@mui/material/LinearProgress";
 
 const Story = () => {
   const { newsId } = useParams();
@@ -109,16 +110,21 @@ const Story = () => {
             <RestartAltIcon />
           </IconButton>
         </Box>
-        {story.descendants !== 0 && (
-          <>
-            <Divider />
-            <Comments
-              story={story}
-              setCommentsIds={setCommentsIds}
-              commentsIds={commentsIds}
-              loading={loading}
-            />
-          </>
+        {loading ? (
+          <Box sx={{ width: "100%" }}>
+            <LinearProgress />
+          </Box>
+        ) : (
+          story.descendants !== 0 && (
+            <>
+              <Divider />
+              <Comments
+                story={story}
+                setCommentsIds={setCommentsIds}
+                commentsIds={commentsIds}
+              />
+            </>
+          )
         )}
       </Box>
     </Container>
