@@ -5,7 +5,6 @@
 - JavaScript 
 - TypeScript 
 - React 
-- MUI
 
 ### Used libraries
 date-fns MUI React Router V6
