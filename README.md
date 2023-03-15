@@ -1,6 +1,8 @@
 # Hacker News
 **Interface** for [Hacker News](https://news.ycombinator.com/news) website
 
+<br>
+
 ### Used technologies
 - JavaScript 
 - TypeScript 
