@@ -2,12 +2,11 @@
 JavaScript TypeScript React MUI
 
 ## Used libraries:
-date-fns mui
+date-fns MUI
 
 ## Available Scripts
 In the project directory, you can run:
 
-* **git clone** https://github.com/Dariannyko/hacker-news-ts.git
 * **npm install** - install npm
 * **npm run dev** - Runs the app in the development mode.
 Open http://localhost:3000 to view it in the browser.
