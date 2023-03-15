@@ -1,43 +1,43 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { returnBack } from "../shared/const";
-
+import { useLocation } from "react-router-dom";
+import { ButtonUpdate } from "./button-update";
+import { ButtonBack } from "./button-back";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import IconButton from "@mui/material/IconButton";
 import RefreshIcon from "@mui/icons-material/Refresh";
-import Button from "@mui/material/Button";
 
 interface HeaderProps {
   downloadStories: () => void;
+  setStoriesIds: (value: number[]) => void;
 }
 
-export default function Header({ downloadStories }: HeaderProps) {
+export default function Header({
+  downloadStories,
+  setStoriesIds,
+}: HeaderProps) {
   const location = useLocation();
-  const navigate = useNavigate();
+
   const newsPath = location.pathname.slice(1, 5) === "news";
+  const homePage = location.pathname === "/";
 
   return (
     <AppBar position="static">
       <Toolbar>
-        <Typography variant="h6" component="p" sx={{ flexGrow: 1 }}>
-          <Link to={`/`}>Hacker News</Link>
+        <Typography
+          variant="h6"
+          component="p"
+          sx={{ flexGrow: 1, cursor: "context-menu" }}
+        >
+          Hacker News
         </Typography>
-        {newsPath && (
-          <Button
-            color="inherit"
-            onClick={() => {
-              navigate(returnBack);
-            }}
-          >
-            Back
-          </Button>
-        )}
-
-        {location.pathname === "/" && (
-          <IconButton size="large" color="inherit" onClick={downloadStories}>
-            <RefreshIcon />
-          </IconButton>
+        {newsPath && <ButtonBack setStoriesIds={setStoriesIds} />}
+        {homePage && (
+          <ButtonUpdate
+            getUpdate={downloadStories}
+            buttonSize={48}
+            buttonColor={"inherit"}
+            iconType={<RefreshIcon />}
+          />
         )}
       </Toolbar>
     </AppBar>

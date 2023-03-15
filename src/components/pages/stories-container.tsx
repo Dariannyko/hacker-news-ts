@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
 import { StoryItem } from "../story-item";
-import { MAX_STORIES, STORIES_INCREMENT } from "../../shared/const";
-import { OutletContext } from "../../shared/types";
 import {
-  getStories,
-  newStoriesUrl,
-  storyUrl,
-} from "../../shared/hacker-news-api";
+  defaultTime,
+  MAX_STORIES,
+  STORIES_INCREMENT,
+  updateTime,
+} from "../../shared/const";
+import { OutletContext } from "../../shared/types";
+import { getStories, newStoriesUrl } from "../../shared/hacker-news-api";
 
 import List from "@mui/material/List";
 import Box from "@mui/material/Box";
@@ -16,8 +17,8 @@ import Button from "@mui/material/Button";
 
 const StoriesContainer = () => {
   const [count, setCount] = useState(STORIES_INCREMENT);
-  const { loading, storiesIds, downloadStories, setStoriesIds }: OutletContext =
-    useOutletContext();
+  const [updateInterval, setUpdateInterval] = useState(defaultTime);
+  const { storiesIds, setStoriesIds, downloadStories }: OutletContext = useOutletContext();
 
   const loadMore = () => {
     if (count < MAX_STORIES) {
@@ -27,22 +28,22 @@ const StoriesContainer = () => {
   };
 
   useEffect(() => {
-    downloadStories();
-  }, []);
-
-  useEffect(() => {
     const intervalCall = setInterval(() => {
-      getStories(newStoriesUrl).then((storiesIds) => {
-        setStoriesIds(storiesIds);
-      });
-    }, 60000);
+      getStories(newStoriesUrl)
+        .then((storiesIds) => {
+          setStoriesIds(storiesIds);
+        })
+        .then(() => {
+          setUpdateInterval(updateTime);
+        });
+    }, updateInterval);
 
     return () => {
       clearInterval(intervalCall);
     };
-  }, []);
+  }, [updateInterval]);
 
-  if (loading)
+  if (!storiesIds.length)
     return (
       <Box sx={{ display: "flex", justifyContent: "center", marginTop: 10 }}>
         <CircularProgress />

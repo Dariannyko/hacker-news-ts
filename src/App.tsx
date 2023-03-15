@@ -1,29 +1,25 @@
+import { useState } from "react";
+import { getStories, newStoriesUrl } from "./shared/hacker-news-api";
 import { Outlet } from "react-router-dom";
 import { Header } from "./components/header";
 import { Container } from "@mui/material";
-import { getStories, newStoriesUrl } from "./shared/hacker-news-api";
-import { useState } from "react";
 
 function App() {
-  const [loading, setLoading] = useState(false);
-  const [storiesIds, setStoriesIds] = useState([]);
+  const [storiesIds, setStoriesIds] = useState<number[]>([]);
 
   const downloadStories = () => {
-    setLoading(true);
     setStoriesIds([]);
     getStories(newStoriesUrl).then((storiesIds) => {
       setStoriesIds(storiesIds);
-      setLoading(false);
     });
   };
 
   return (
     <div className="App">
-      <Header downloadStories={downloadStories} />
+      <Header downloadStories={downloadStories} setStoriesIds={setStoriesIds} />
       <Container sx={{ marginTop: 4 }}>
         <Outlet
           context={{
-            loading,
             storiesIds,
             setStoriesIds,
             downloadStories,

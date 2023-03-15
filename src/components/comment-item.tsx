@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
 import { getStories, storyUrl } from "../shared/hacker-news-api";
 import { CommentType } from "../shared/types";
+import { ButtonReplies } from "./button-replies";
 import { format } from "date-fns";
-
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import SubdirectoryArrowRightIcon from "@mui/icons-material/SubdirectoryArrowRight";
-import Button from "@mui/material/Button";
 
 interface CommentItemProps {
   commentId: number;
@@ -18,7 +16,7 @@ const CommentItem = ({ commentId }: CommentItemProps) => {
   const [isReplies, setIsReplies] = useState(false);
 
   useEffect(() => {
-    getStories(`${storyUrl + commentId}.json`).then((storiesIds) => {
+    getStories(`${storyUrl + commentId}`).then((storiesIds) => {
       setComment(storiesIds);
     });
   }, []);
@@ -70,17 +68,7 @@ const CommentItem = ({ commentId }: CommentItemProps) => {
             {isReplies ? (
               comment.kids.map((id) => <CommentItem commentId={id} key={id} />)
             ) : (
-              <Button
-                startIcon={<SubdirectoryArrowRightIcon sx={{ fontSize: 20 }} />}
-              >
-                <Typography
-                  variant="body2"
-                  component="p"
-                  sx={{ fontWeight: 500 }}
-                >
-                  {comment.kids.length} replies
-                </Typography>
-              </Button>
+              <ButtonReplies comment={comment} />
             )}
           </div>
         )}
