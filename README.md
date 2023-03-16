@@ -32,6 +32,4 @@ Your app is ready to be deployed!
 <br>
 
 ## Project Link :
-✨ **[Movies](https://effortless-mochi-1aa92a.netlify.app/)** \
-\
-P.S. If you are in Russia to view pictures, please enable vpn :)
+✨ **[Hacker News](https://master--deft-pasca-8dd828.netlify.app/)**
